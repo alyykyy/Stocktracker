@@ -1,0 +1,165 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="floating-card">
+  <h1>Stock List</h1>
+  <!-- Button trigger modal -->
+  <button
+    id="showAddStockModal"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#addStockModal"
+  >
+    Add Stock
+  </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Stock Key</th>
+        <th>Item Name</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Added At</th>
+        <th>Expiry Date</th>
+        <th>Supplier</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stock in stocks %}
+      <tr>
+        <td>{{ stock.stock_key }}</td>
+        <td>{{ stock.item_name }}</td>
+        <td>{{ stock.get_category_display }}</td>
+        <td>{{ stock.quantity }}</td>
+        <td>{{ stock.added_at }}</td>
+        <td>{{ stock.expiry_date }}</td>
+        <td>{{ stock.supplier }}</td>
+        <td>
+          <button
+            class="btn btn-secondary edit-stock-btn"
+            data-stock-id="{{ stock.id }}"
+            data-url="{% url 'edit_stock' stock.id %}"
+            data-bs-toggle="modal"
+            data-bs-target="#editStockModal"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-danger delete-stock-btn"
+            data-stock-id="{{ stock.id }}"
+            data-stock-name="{{ stock.item_name }}"
+            data-url="{% url 'delete_stock' stock.id %}"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteStockModal"
+          >
+            Delete
+          </button>
+          <button
+            class="btn btn-primary add-inventory-btn"
+            data-stock-id="{{ stock.id }}"
+            data-url="{% url 'add_to_inventory' stock.id %}"
+            data-bs-toggle="modal"
+            data-bs-target="#addToInventoryModal"
+          >
+            Add to Inventory
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Add Stock Modal -->
+<div
+  class="modal fade"
+  id="addStockModal"
+  tabindex="-1"
+  aria-labelledby="addStockModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<!-- Edit Stock Modal -->
+<div
+  class="modal fade"
+  id="editStockModal"
+  tabindex="-1"
+  aria-labelledby="editStockModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<!-- Delete Stock Modal -->
+<div
+  class="modal fade"
+  id="deleteStockModal"
+  tabindex="-1"
+  aria-labelledby="deleteStockModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<!-- Add to Inventory Modal -->
+<div
+  class="modal fade"
+  id="addToInventoryModal"
+  tabindex="-1"
+  aria-labelledby="addToInventoryModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Load Add Stock form into the modal
+    $("#addStockModal").on("show.bs.modal", function (event) {
+      var modal = $(this);
+      var modalContent = modal.find(".modal-content");
+      modalContent.load("{% url 'add_stock' %}");
+    });
+
+    // Load Edit Stock form into the modal
+    $(".edit-stock-btn").click(function () {
+      var url = $(this).data("url");
+      var modal = $("#editStockModal");
+      var modalContent = modal.find(".modal-content");
+      modalContent.load(url);
+    });
+
+    // Load Delete Stock form into the modal and handle form submission
+    $(".delete-stock-btn").click(function () {
+      var stockName = $(this).data("stock-name"); // Retrieve stock name from data attribute
+      var url = $(this).data("url");
+      var modal = $("#deleteStockModal");
+      var modalContent = modal.find(".modal-content");
+
+      modalContent.load(url, function () {
+        // Callback function executed after modal content is loaded
+        // Set the stock name in the modal
+        modal.find("#data-stock-name").text(stockName);
+      });
+    });
+
+    // Load Add to Inventory form into the modal
+    $(".add-inventory-btn").click(function () {
+      var url = $(this).data("url");
+      var modal = $("#addToInventoryModal");
+      var modalContent = modal.find(".modal-content");
+      modalContent.load(url);
+    });
+  });
+</script>
+{% endblock %}

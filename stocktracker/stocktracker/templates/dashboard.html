@@ -1,0 +1,79 @@
+<!-- inventory.html -->
+{% extends 'base.html' %} {% block content %} {% load static %}
+
+<div class="floating-card">
+  <main class="content px-3 py-4">
+    <div class="container-fluid">
+      <div class="mb-3">
+        <h5 class="fw-bold fs-4 mb-3">Home</h5>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-4 mb-4">
+            <!-- Custom Cards -->
+            <a
+              href="{% url 'users' %}"
+              class="card border-0 d-flex align-items-center justify-content-center p-5"
+            >
+              <img
+                src="{% static 'icons/users.png' %}"
+                alt="Users Icon"
+                width="90"
+                height="90"
+              />
+              <div class="icon-text">Users</div>
+            </a>
+          </div>
+
+          <div class="col-12 col-md-4 mb-4">
+            <!-- Custom Cards -->
+            <a
+              href="{% url 'stock_list' %}"
+              class="card border-0 d-flex align-items-center justify-content-center p-5"
+            >
+              <img
+                src="{% static 'icons/stocks.png' %}"
+                alt="Users Icon"
+                width="90"
+                height="90"
+              />
+              <div class="icon-text">Stocks</div>
+            </a>
+          </div>
+
+          <div class="col-12 col-md-4 mb-4">
+            <!-- Custom Cards -->
+            <a
+              href="{% url 'inventory_list' %}"
+              class="card border-0 d-flex align-items-center justify-content-center p-5"
+            >
+              <img
+                src="{% static 'icons/inventory.png' %}"
+                alt="Users Icon"
+                width="90"
+                height="90"
+              />
+              <div class="icon-text">Inventory</div>
+            </a>
+          </div>
+
+          <div class="col-12 col-md-4 mb-4">
+            <!-- Custom Cards -->
+            <a
+              href="{% url 'alerts' %}"
+              class="card border-0 d-flex align-items-center justify-content-center p-5"
+            >
+              <img
+                src="{% static 'icons/alert.png' %}"
+                alt="Users Icon"
+                width="90"
+                height="90"
+              />
+              <div class="icon-text">Alerts</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+{% endblock %}

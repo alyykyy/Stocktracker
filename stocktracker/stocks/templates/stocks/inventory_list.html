@@ -1,0 +1,140 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="floating-card">
+  <h1>Inventory List</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Stock Key</th>
+        <th>Item Name</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Added At</th>
+        <th>Expiry Date</th>
+        <th>Supplier</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in inventory_items %}
+      <tr>
+        <td>{{ item.stock.stock_key }}</td>
+        <td>{{ item.stock.item_name }}</td>
+        <td>{{ item.stock.get_category_display }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.added_at }}</td>
+        <td>{{ item.stock.expiry_date }}</td>
+        <td>{{ item.stock.supplier }}</td>
+        <td>
+          <button
+            class="btn btn-secondary edit-inventory-btn"
+            data-inventory-id="{{ item.id }}"
+            data-url="{% url 'edit_inventory' item.id %}"
+            data-bs-toggle="modal"
+            data-bs-target="#editInventoryModal"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-danger delete-inventory-btn"
+            data-inventory-id="{{ item.id }}"
+            data-inventory-name="{{ item.stock.item_name }}"
+            data-url="{% url 'delete_inventory' item.id %}"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteInventoryModal"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Edit Inventory Modal -->
+<div
+  class="modal fade"
+  id="editInventoryModal"
+  tabindex="-1"
+  aria-labelledby="editInventoryModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editInventoryModalLabel">Edit Inventory</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Edit form will be loaded here via AJAX -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Inventory Modal -->
+<div
+  class="modal fade"
+  id="deleteInventoryModal"
+  tabindex="-1"
+  aria-labelledby="deleteInventoryModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteInventoryModalLabel">
+          Delete Inventory
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Delete confirmation will be loaded here via AJAX -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const editButtons = document.querySelectorAll(".edit-inventory-btn");
+    const deleteButtons = document.querySelectorAll(".delete-inventory-btn");
+
+    editButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const url = button.getAttribute("data-url");
+        fetch(url)
+          .then((response) => response.text())
+          .then((html) => {
+            document.querySelector(
+              "#editInventoryModal .modal-body"
+            ).innerHTML = html;
+          });
+      });
+    });
+
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const url = button.getAttribute("data-url");
+        fetch(url)
+          .then((response) => response.text())
+          .then((html) => {
+            document.querySelector(
+              "#deleteInventoryModal .modal-body"
+            ).innerHTML = html;
+          });
+      });
+    });
+  });
+</script>
+{% endblock %}

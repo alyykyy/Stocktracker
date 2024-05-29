@@ -1,0 +1,8 @@
+<p>Are you sure you want to delete {{ inventory_item.stock.item_name }}?</p>
+<form method="post" action="{% url 'delete_inventory' inventory_item.id %}">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Delete</button>
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+    Cancel
+  </button>
+</form>

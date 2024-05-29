@@ -1,0 +1,163 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Alerts</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="floating-card">
+            <h1 class="text-center">Stock Expiration</h1>
+            <hr />
+            <ul>
+              <!-- Headers -->
+              <li class="row font-weight-bold mb-2">
+                <div class="col no-right-padding">Item Name</div>
+                <div class="col">Expired Date</div>
+              </li>
+              <!-- Expired Items -->
+              {% for stock in expired %}
+              <li class="row mb-1">
+                <div class="col">
+                  <img
+                    src="{% static 'icons/expired.png' %}"
+                    alt="Expired"
+                    class="me-2"
+                    width="20px"
+                  />{{ stock.item_name }}
+                </div>
+                <div class="col">Expired on {{ stock.expiry_date }}</div>
+              </li>
+              {% empty %}
+              <li>No expired stock items.</li>
+              {% endfor %}
+              <!-- Almost Expired Items -->
+              {% for stock in almost_expired %}
+              <li class="row mb-1">
+                <div class="col">
+                  <img
+                    src="{% static 'icons/almost_expired.png' %}"
+                    alt="Expired"
+                    class="me-2"
+                    width="20px"
+                  />{{ stock.item_name }}
+                </div>
+                <div class="col">Expires on {{ stock.expiry_date }}</div>
+              </li>
+              {% empty %}
+              <li>No almost expired stock items.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="floating-card">
+            <h1 class="text-center">Stocks Levels</h1>
+            <hr />
+            <ul>
+              <!-- Headers -->
+              <li class="row font-weight-bold mb-2">
+                <div class="col no-right-padding">Item Name</div>
+                <div class="col">Quantity</div>
+              </li>
+              <!-- Critically Low Items -->
+              {% for stock in critically_low %}
+              <li class="row mb-1">
+                <div class="col no-right-padding">
+                  <img
+                    src="{% static 'icons/crit_low.png' %}"
+                    alt="Expired"
+                    class="me-2"
+                    width="20px"
+                  />{{ stock.item_name }}
+                </div>
+                <div class="col">Quantity: {{ stock.quantity }}</div>
+              </li>
+              {% empty %}
+              <li>No critically low stock items.</li>
+              {% endfor %}
+              <!-- Low Stock Items -->
+              {% for stock in low_stock %}
+              <li class="row mb-1">
+                <div class="col no-right-padding">
+                  <img
+                    src="{% static 'icons/low.png' %}"
+                    alt="Expired"
+                    class="me-2"
+                    width="20px"
+                  />{{ stock.item_name }}
+                </div>
+                <div class="col">Quantity: {{ stock.quantity }}</div>
+              </li>
+              {% empty %}
+              <li>No low stock items.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Glossary of Icons -->
+      <div class="fixed-bottom">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <hr />
+              <div class="row text-center">
+                <div class="col-6 mb-3">
+                  <img
+                    src="{% static 'icons/almost_expired.png' %}"
+                    alt="Almost Expired"
+                    class="me-2"
+                    width="20px"
+                  />
+                  Almost Expired Stock
+                </div>
+                <div class="col-6 mb-3">
+                  <img
+                    src="{% static 'icons/crit_low.png' %}"
+                    alt="Critically Low"
+                    class="me-2"
+                    width="20px"
+                  />
+                  Critically Low Stock
+                </div>
+                <div class="col-6 mb-3">
+                  <img
+                    src="{% static 'icons/expired.png' %}"
+                    alt="Expired"
+                    class="me-2"
+                    width="20px"
+                  />
+                  Expired / No more Stock
+                </div>
+                <div class="col-6 mb-3">
+                  <img
+                    src="{% static 'icons/low.png' %}"
+                    alt="Low Stock"
+                    class="me-2"
+                    width="20px"
+                  />
+                  Low Stock
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  /* Custom CSS to position glossary section fixed to bottom */
+  .fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px; /* Optional: Add padding for spacing */
+  }
+</style>
+{% endblock %}

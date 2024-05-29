@@ -1,0 +1,157 @@
+{% load static%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar With Bootstrap</title>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <aside id="sidebar">
+        <div class="d-flex logo">
+          <button class="toggle-btn" type="button">
+            <img class="lni lni-grid-alt"width="30"
+            height="30" src={% static "icons/stock-tracker.png" %}></img>
+          </button>
+          <div class="sidebar-logo">
+            <a href="#">StockTracker</a>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li
+            class="sidebar-item {% if request.path == '/dashboard/' %}active{% endif %}"
+          >
+            <a href="{% url 'dashboard' %}" class="sidebar-link">
+              <img
+                src="{% static 'icons/home.png' %}"
+                alt="Home Icon"
+                width="25"
+                height="25"
+              />
+              <span>Home</span>
+            </a>
+          </li>
+          <li
+            class="sidebar-item {% if request.path == '/accounts/users/' %}active{% endif %}"
+          >
+            <a href="{% url 'users' %}" class="sidebar-link">
+              <img
+                src="{% static 'icons/users.png' %}"
+                alt="Home Icon"
+                width="25"
+                height="25"
+              />
+              <span>Users</span>
+            </a>
+          </li>
+
+          <li
+            class="sidebar-item {% if request.path == '/stocks/' %}active{% endif %}"
+          >
+            <a href="{% url 'stock_list' %}" class="sidebar-link">
+              <img
+                src="{% static 'icons/stocks.png' %}"
+                alt="Home Icon"
+                width="25"
+                height="25"
+              />
+              <span>Stocks</span>
+            </a>
+          </li>
+
+          <li
+            class="sidebar-item {% if request.path == '/inventory/' %}active{% endif %}"
+          >
+            <a href="{% url 'inventory_list' %}" class="sidebar-link">
+              <img
+                src="{% static 'icons/inventory.png' %}"
+                alt="Home Icon"
+                width="25"
+                height="25"
+              />
+              <span>Inventory</span>
+            </a>
+          </li>
+
+          <li
+            class="sidebar-item {% if request.path == '/alerts/' %}active{% endif %}"
+          >
+            <a href="{% url 'alerts' %}" class="sidebar-link">
+              <img
+                src="{% static 'icons/alert.png' %}"
+                alt="Home Icon"
+                width="25"
+                height="25"
+              />
+              <span>Alerts</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <!--  Main content on the side-->
+      <div class="main">
+        <nav class="navbar navbar-expand px-4 py-3">
+          <form action="#" class="d-none d-sm-inline-block"></form>
+          <div class="navbar-collapse collapse">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item dropdown">
+                <a
+                  href="#"
+                  class="nav-link dropdown-toggle"
+                  id="userDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="{% static 'icons/users.png' %}"
+                    alt="User Icon"
+                    class="avatar"
+                  />
+                  <span>{{ user.username }}</span>
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="userDropdown"
+                >
+                  <li>
+                    <form action="{% url 'logout' %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="dropdown-item">
+                        Logout
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        {% block content %} {% endblock %}
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'script.js' %}"></script>
+  </body>
+</html>

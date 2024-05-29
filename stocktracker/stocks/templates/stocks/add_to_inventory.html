@@ -1,0 +1,16 @@
+<!-- stocks/templates/stocks/add_to_inventory.html -->
+<div class="modal-header">
+  <h5 class="modal-title" id="addToInventoryModalLabel">Add to Inventory</h5>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="modal"
+    aria-label="Close"
+  ></button>
+</div>
+<div class="modal-body">
+  <form method="post" action="{% url 'add_to_inventory' stock.id %}">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add to Inventory</button>
+  </form>
+</div>

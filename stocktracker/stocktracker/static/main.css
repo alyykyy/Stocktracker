@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+.floating-card {
+  padding: 20px;
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-dialog {
+  max-width: 100%;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 550px;
+  max-width: 100%;
+  margin: auto;
+}
+
+.modal-header h5 {
+  margin: 0;
+}
+
+.modal-body .form-group {
+  margin-bottom: 15px;
+}
+
+.modal-body .form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal-body .form-group input,
+.modal-body .form-group select {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: #d9d9d9;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+}
+
+.modal-footer .btn {
+  width: auto; /* Adjust the width as needed */
+  border-radius: 8px; /* Adjust the border radius as needed */
+  margin: 0 5px; /* Add some margin between buttons */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #565e64;
+}

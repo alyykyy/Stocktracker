@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="floating-card">
+  <h1>User List</h1>
+  <button
+    id="showAddUserModal"
+    class="btn btn-primary justify-content-end"
+    data-bs-toggle="modal"
+    data-bs-target="#addUserModal"
+  >
+    Add User
+  </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>User Key</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.account_key }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>
+          <form method="post" action="{% url 'delete_user' user.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Add User Modal -->
+<div
+  class="modal fade"
+  id="addUserModal"
+  tabindex="-1"
+  aria-labelledby="addUserModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="addUserForm" method="post" action="{% url 'add_user' %}">
+          {% csrf_token %}
+          <div class="form-group">{{ add_user_form.as_p }}</div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Add User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

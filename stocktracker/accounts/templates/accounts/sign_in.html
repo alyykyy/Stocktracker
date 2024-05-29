@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-primary">
+    <div class="container">
+      <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card shadow">
+            <div class="card-body">
+              <h3 class="card-title text-center">Sign In</h3>
+              <form method="post">
+                {% csrf_token %} {{ form.non_field_errors }}
+                <div class="form-group">{{ form.as_p }}</div>
+                <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-primary btn-block">
+                    Login to account
+                  </button>
+                </div>
+                <div class="text-center mt-3">
+                  <a
+                    href="{% url 'password_reset_form' %}"
+                    class="text-secondary"
+                    >Forgot password?</a
+                  >
+                </div>
+                <div class="text-center mt-3">
+                  <a href="{% url 'sign_up' %}" class="btn btn-success"
+                    >Create new account</a
+                  >
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <style>
+    body {
+      background: linear-gradient(180deg, #7ccbec 0%, #093c52 100%);
+      color: #000000;
+    }
+
+    .navbar {
+      padding: 0.5rem 1rem;
+    }
+
+    .card {
+      border-radius: 15px;
+    }
+
+    .card-title {
+      font-weight: bold;
+      color: #343a40;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-primary {
+      background-color: #4c99ba;
+      border: none;
+      padding: 10px;
+      border-radius: 25px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-success {
+      background-color: #37a34f;
+      border: none;
+      padding: 10px;
+      border-radius: 25px;
+    }
+
+    .btn-success:hover {
+      background-color: #495057;
+    }
+
+    .helptext {
+      color: #6c757d !important;
+    }
+  </style>
+</html>

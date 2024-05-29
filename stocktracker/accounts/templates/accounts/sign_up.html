@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-12">
+          <div class="card shadow p-4">
+            <div class="card-body">
+              <h3 class="card-title text-center">Sign Up</h3>
+              <form method="POST">
+                {% csrf_token %} {{ form.non_field_errors }}
+                <div class="form-group">{{ form.as_p }}</div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">
+                  Sign Up
+                </button>
+              </form>
+              <div class="text-center mt-3">
+                <p>
+                  Already have an account?
+                  <a href="{% url 'sign_in' %}" class="text-secondary"
+                    >Sign In</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <style>
+    body {
+      background: linear-gradient(180deg, #7ccbec 0%, #093c52 100%);
+      color: #000000;
+    }
+    .card {
+      border-radius: 15px;
+    }
+    .card-title {
+      font-weight: bold;
+      color: #343a40;
+    }
+    .form-control {
+      border-radius: 25px;
+    }
+    .btn-primary {
+      background-color: #37a34f;
+      border: none;
+      border-radius: 25px;
+    }
+    .btn-primary:hover {
+      background-color: #495057;
+    }
+    .text-secondary {
+      color: #2980cc !important;
+    }
+    .text-secondary:hover {
+      color: #053c74 !important;
+    }
+    .container {
+      max-width: 600px;
+    }
+    p input {
+      padding: 10px;
+      border-radius: 25px;
+    }
+    .helptext {
+      color: #6c757d !important;
+    }
+  </style>
+</html>
